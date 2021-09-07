@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link href="css/quiz_hikari_oh.css" rel="stylesheet" type="text/css" />
+        <style>
+            #navi02{
+                position: absolute;
+                left:10px;
+                top:0px;
+                opacity: 0; 
+                z-index:20;
+            }
+
+            #hika{
+                position: absolute;
+                left:950px;
+                top:0px;
+                opacity: 0; 
+                z-index:20;
+            }
+
+            #center_panel{
+                position: absolute;
+                left:350px;
+                top:15px;
+                width:550px;
+                height:500px;
+                opacity: 0; 
+                z-index:20;
+            }
+
+            .score_wid{
+                width:260px;
+
+            }
+
+        </style>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+        <script>
+
+var ar_q_a = [ 
+['パンダのしっぽの色は　白である',0],
+['お正月にかざるのは　クリスマスツリーである',1],
+['イヌは　うちゅう　には行くことができない',1],
+['おかしの　きのこの山　と　たけのこの里　にんきがあるのはきのこの山である',1],
+['ちきゅうでは　女性よりも男性のほうが　おおい',0],
+['タラバガニは　もちろん　カニである',1],
+['キリンの　ねむる時間は　1時間である',1],
+['フランス語で　いなづま　をあらわすことばは　エクレア　である',0],
+['シュークリームの「シュー」のいみは、フランス語の「やく」といういみである',1],
+['こうそくどうろ　ではゆっくりはしってもいい',1],
+['どろぼうが　おおいのは火曜日である',0],
+['なみだ　のあじは　きもちで　かわる',0],
+['「のび　のび太」　のお母さんの　なまえは　「のび　たま子」　である',0],
+['ドラえもんの　しんちょうは「123cm」である',1],
+['アニメ「ドラえもん」の　さいしょの映画は「のび太のきょうりゅう」である',0],
+['「ちびまる子ちゃん」の　はなしの ぶたいは　東京である',1],
+['「きょほう」「ナイアガラ」「マスカット」などのなまえがあるくだものはイチゴである',1],
+['たいようは　にし　からのぼって　ひがし　に沈む',1],
+['さんすう　は　中学校では　すうがく　というなまえにかわる',0],
+['トランプのマーク　はハート、スペード、クローバー、もう1つは　ルビー　である',1],
+['オセロは　日本でうまれたあそびである',0],
+['「そうめん」と「ひやむぎ」、めんが細い方は「そうめん」である',0],
+['牛乳は　ひつじ　から出るもので作っている',1],
+['サンタクロースのソリをひっぱているどうぶつはシカである',1],
+['じゅぎょうでつかう「こくばん」のほかに、「はくばん」というのもある',0],
+['チョコレートは　おやさい　である',1],
+['さむいときに　くびに　まくのは　てぶくろ　である',1],
+['東京にも　さばく　がある',0],
+['冷たいものを食べたときあたまがいたくなることを、「アイスクリームずつう」という',0],
+['ロバの　べつの　なまえは　「うさぎうま」である',0],
+['「100まん」は「ミリオン」、「10おく」は「ビリオン」ですが、「1ちょう」は「トリリオン」である',0],
+['ほそながい　いえ　のことを　うなぎのねどこ　という',0],
+['サッカーのしあい　で　ひとりが3てん　とることを　ハットマジック　という',1],
+['とつぜんのできごと　をあらわす　せいてんのへきれき　の　へきれき　とは　かみなり　のことである',0],
+['がっき　の　ウクレレ　には　「ノミ　がはねる」という　いみがある',0]
+];
+var int_max=ar_q_a.length
+
+
+function chng_q(){
+
+    int_q = Math.floor( Math.random() * int_max );
+
+    $("#q_num").val(int_q)
+    $("#q_ans").val(ar_q_a[int_q][1])
+    $("#quest").text(ar_q_a[int_q][0])
+
+}
+
+
+            //*******自動実行*******
+            $(function(){
+                $.when($("#white_back").animate({opacity: 0}, 1000)).done(function(){
+                    $.when($("#white_back").remove()).done(function(){
+                        $.when($("#navi02").animate({opacity: 1}, 1000)).done(function(){
+                            $.when($("#hika").animate({opacity: 1}, 1000)).done(function(){
+                                $.when($("#center_panel").animate({opacity: 1}, 1000)).done(function(){
+                                    $("#buttons").animate({opacity: 1}, 1000)
+                                })
+                            })
+                        })
+                    })
+                })
+                $("#q_count").text(int_max);
+
+                chng_q();
+
+
+
+            })
+
+            function prpnd(val){
+                document.form1.hika_ans.value=val
+
+                if(val=="0"){
+                    $(".prpnd_btn_0").removeClass("bg_c08").addClass("bg_c09");
+                    $(".prpnd_btn_x").removeClass("bg_c09").addClass("bg_c08");
+                }else{
+                    $(".prpnd_btn_0").removeClass("bg_c09").addClass("bg_c08");
+                    $(".prpnd_btn_x").removeClass("bg_c08").addClass("bg_c09");
+                }
+            }
+
+            function pls_score(){
+                $("#score").text(parseInt($("#score").text())+1)
+                if (parseInt($("#score").text())>=20){alert("おしまいだよ")}
+            }
+
+                function decide(){
+                    //****もんだいの答えと回答が同じな場合。正解！！！！」*********************
+                    if(document.form1.q_ans.value==document.form1.hika_ans.value){
+
+                        $.when(
+                            $("#score").addClass("blink_blink"),
+                            pls_score(),
+                            $("#hika_img").attr("src","img/hika_04_cor.png"),
+                            $("#yuka_img").attr("src","img/navi_03_cor.png")
+                        ).done(function(){
+                            $.when(
+                                setTimeout(function(){
+                                    $("#hika_img").attr("src","img/hika_04_nor.png");
+                                    $("#yuka_img").attr("src","img/navi_03_nor.png")
+                                },2000)
+                            ).done(function(){
+                                $.when(
+                                    setTimeout(function(){
+                                        $("#score").removeClass("blink_blink");
+                                        chng_q();
+
+                                    },2000)
+                                ).done(function(){
+                                    rst_inp();
+                                })
+                            })
+                        })
+                    //****もんだいの答えと回答が違う場合。間違い！！！！！*************************
+                    }else{
+                        $.when(
+                            $("#hika_img").attr("src","img/hika_04_inc.png"),
+                            $("#yuka_img").attr("src","img/navi_03_inc.png")
+                        ).done(function(){
+
+                            $.when(
+                                setTimeout(function(){
+                                    chng_q();
+                                    $("#hika_img").attr("src","img/hika_04_nor.png");
+                                    $("#yuka_img").attr("src","img/navi_03_nor.png")
+                                },2000)
+                            ).done(function(){
+                                rst_inp();
+                            })
+                        })
+                    }
+
+
+                }
+
+                var tim_id;
+
+                //*****************************
+                function rst_inp(){
+                    $.when(
+                        clearTimeout(tim_id),
+                        document.form1.hika_ans.value="",
+                        $(".prpnd_btn_0").removeClass("bg_c08").removeClass("bg_c09").addClass("bg_c08"),
+                        $(".prpnd_btn_x").removeClass("bg_c08").removeClass("bg_c09").addClass("bg_c08")
+                    ).done(function(){
+                        timr_start();
+                    })
+
+
+                }
+
+
+
+                //*****************************
+                function timr_start(){
+                    var ans_count = 30;
+                    var countdown = function(){
+                    $("#ans_count").text(ans_count--)
+                    tim_id = setTimeout(countdown, 1000);
+                    if(ans_count < 0){　
+                        clearTimeout(tim_id);
+                    };
+                    }
+                    countdown();
+                }
+
+
+
+//2020/05/16ココから！！
+//１、問題文の例を作る
+//２、どんなデータ保持方法にするかを決める
+//３、問題文を順番に出す
+//４、いくよ？　を入れる
+//５、もんだい！　をいれる
+
+
+
+
+
+
+
+        </script>
+    </head>
+
+    <body>
+        <div id="white_back"></div>
+        <div id="navi02">
+            <img src="img/navi_03_nor.png" id="yuka_img">
+        </div>
+
+        <div id="hika">
+            <img src="img/hika_04_nor.png" id="hika_img">
+        </div>
+
+
+        <div id="center_panel">
+<form name="form1">
+    <input type="hidden" value="" id="q_num">
+    <input type="hidden" value="" name="q_ans" id="q_ans">
+<input type="hidden" value="user答え0" name="hika_ans">
+</form>
+            <div class="rad_8 bg_c04 w100p h200">
+                <div class="mar_a15 fnt_c00 fnt_s32" id="quest">
+                もんだい！！
+                </div>
+            </div>
+
+            <div class="clearfix mar_b15"></div>
+
+            <div class="rad_8 bor_a_w2 bor_a_s_sld bor_c03 score_wid2 pad_a5 bg_c00">
+                <div class="flt_lef w50p">
+                    <div class="fnt_s15 tex_cen">のこりじかん</div>
+                    <div class="tex_rig">
+                        <span class="fnt_s30" id="ans_count">30</span>
+                        <span class="fnt_s15">びょう</span>
+                    </div>
+                </div>
+
+                <div class="flt_lef w50p">
+                    <div class="fnt_s15 tex_cen">せいかいのかず/ぜんぶで</div>
+                    <div class="tex_rig">
+                        <span class="fnt_s30" id="score">0</span>
+                        <span class="fnt_s15">こ/</span>
+                        <span class="fnt_s30" id="q_count">30</span>
+                        <span class="fnt_s15">こ</span>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+<div class="clearfix mar_b30"></div>
+            <input type="button" value="◯" class="prpnd_btn_0 rad_8 bg_c08 fnt_c00 fnt_s40 bor_a_0 cur_poi score_wid flt_lef" onclick="prpnd('0')">
+            <input type="button" value="Ｘ" class="prpnd_btn_x rad_8 bg_c08 fnt_c00 fnt_s40 bor_a_0 cur_poi score_wid flt_rig" onclick="prpnd('1')">
+<div class="clearfix mar_b15"></div>
+            <input type="button" value="けってい" class="rad_8 bg_c08 fnt_c00 fnt_s40 bor_a_0 cur_poi w100p" onclick="decide()">
+
+
+        </div>
+
+
+    </body>
+</html>
